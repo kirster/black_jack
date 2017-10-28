@@ -2,6 +2,8 @@ require_relative './dealer'
 require_relative './player'
 
 class Game
+  attr_accessor :game_bank
+
   def start_game
     @game_bank = 0
     @dealer = Dealer.new
@@ -19,7 +21,7 @@ class Game
 
     2.times { @dealer.hand.add_card }
     @dealer.bank -= 10
-    @game_bank += 20
+    game_bank= 20
   end
 end
 

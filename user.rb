@@ -1,10 +1,12 @@
 class User
+  INITIAL_BANK = 100
+
   attr_reader :name, :hand
   attr_accessor :bank
 
   def initialize(name)
     @name = name
-    @bank = 100
+    @bank = INITIAL_BANK
     @hand = Hand.new
   end
 end
