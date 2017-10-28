@@ -13,13 +13,13 @@ class Game
   end
 
   def first_round
-    2.times { @player.add_card }
-    @player.cards
-    puts @player.points
-    @player.make_bet
-    2.times { @dealer.add_card }
-    puts @dealer.hidden_cards
-    @dealer.make_bet
+    2.times { @player.hand.add_card }
+    puts @player.hand.cards
+    puts @player.hand.points
+    @player.bank -= 10
+
+    2.times { @dealer.hand.add_card }
+    @dealer.bank -= 10
     @game_bank += 20
   end
 end

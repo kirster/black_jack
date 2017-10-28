@@ -1,14 +1,13 @@
-require_relative './common'
+require_relative './hand'
 
 class Player
-  include Common
-
-  attr_reader :name, :bank, :hand, :points
+  attr_reader :name, :hand
+  attr_accessor :bank
 
   def initialize(name)
     @name = name
     @bank = 100
-    @hand = []
+    @hand = Hand.new
     validate!
   end
 
