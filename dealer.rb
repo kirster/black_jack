@@ -1,13 +1,17 @@
-require_relative './betting'
+require_relative './common'
 
 class Dealer
-  include Betting
-  
-  attr_reader :name, :bank, :hand
+  include Common
+
+  attr_reader :name, :bank, :hand, :points
 
   def initialize
     @name = 'Dealer'
     @bank = 100
     @hand = []
+  end
+
+  def hidden_cards
+    "**"
   end
 end

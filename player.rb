@@ -1,9 +1,9 @@
-require_relative './betting'
+require_relative './common'
 
 class Player
-  include Betting
-  
-  attr_reader :name, :bank, :hand
+  include Common
+
+  attr_reader :name, :bank, :hand, :points
 
   def initialize(name)
     @name = name
