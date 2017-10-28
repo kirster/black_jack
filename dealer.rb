@@ -1,12 +1,8 @@
 require_relative './hand'
+require_relative './user'
 
-class Dealer
-  attr_reader :name, :hand
-  attr_accessor :bank
-
-  def initialize
-    @name = 'Dealer'
-    @bank = 100
-    @hand = Hand.new
+class Dealer < User
+  def initialize(name = 'Dealer')
+    super
   end
 end

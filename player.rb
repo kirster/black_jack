@@ -1,19 +1,15 @@
 require_relative './hand'
+require_relative './user'
 
-class Player
-  attr_reader :name, :hand
-  attr_accessor :bank
-
+class Player < User
   def initialize(name)
-    @name = name
-    @bank = 100
-    @hand = Hand.new
+    super
     validate!
   end
 
   protected
 
   def validate!
-    raise "Name can`be nill or empty" if name.nil? || name.empty?  
+    raise 'Name can`be nill or empty' if name.nil? || name.empty?  
   end
 end

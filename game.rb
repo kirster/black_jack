@@ -1,6 +1,5 @@
 require_relative './dealer'
 require_relative './player'
-require_relative './card'
 
 class Game
   def start_game
@@ -23,3 +22,6 @@ class Game
     @game_bank += 20
   end
 end
+
+game = Game.new
+game.start_game
