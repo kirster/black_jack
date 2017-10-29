@@ -11,9 +11,13 @@ class Hand
   end
 
   def add_card
-    card = Card.new
-    @cards << card
-    ace_check!(card)
+    if @cards.size < 3
+      card = Card.new
+      @cards << card
+      ace_check!(card)
+    else
+      'No more than 3 cards'
+    end 
   end
 
   def cards
@@ -24,6 +28,6 @@ class Hand
 
   def ace_check!(card)
     value = card.card_value
-    value == 11 && points > 10 ? @points += 1 : @points += value         
+    value == 11 && @points > 10 ? @points += 1 : @points += value         
   end
 end

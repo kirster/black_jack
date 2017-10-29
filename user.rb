@@ -9,4 +9,8 @@ class User
     @bank = INITIAL_BANK
     @hand = Hand.new
   end
+
+  def skip_move
+    puts "#{name} skips move"
+  end
 end

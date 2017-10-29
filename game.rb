@@ -2,7 +2,7 @@ require_relative './dealer'
 require_relative './player'
 
 class Game
-  attr_accessor :game_bank
+  attr_reader :game_bank
 
   def start_game
     @game_bank = 0
@@ -13,15 +13,18 @@ class Game
     first_round
   end
 
+  private
+
   def first_round
-    2.times { @player.hand.add_card }
-    puts @player.hand.cards
-    puts @player.hand.points
+    2.times { @player.add_card }
+    puts "#{@player.name}: #{@player.hand.cards}, points: #{@player.hand.points}"
     @player.bank -= 10
 
-    2.times { @dealer.hand.add_card }
+    2.times { @dealer.add_card }
+    puts "#{@dealer.name}: * *"
     @dealer.bank -= 10
-    game_bank= 20
+
+    @game_bank += 20
   end
 end
 
