@@ -3,7 +3,7 @@ require_relative './card'
 class Hand
   VICTORY_POINTS = 21
 
-  attr_reader :points
+  attr_reader :points, :cards
 
   def initialize
     @cards = []
@@ -11,7 +11,7 @@ class Hand
   end
 
   def add_card
-    if @cards.size < 3
+    unless cards_amount?
       card = Card.new
       @cards << card
       ace_check!(card)
@@ -20,7 +20,7 @@ class Hand
     end 
   end
 
-  def cards
+  def show_cards
     result = ""
     @cards.each { |card| result << "#{card.card} " }
     result
@@ -29,5 +29,9 @@ class Hand
   def ace_check!(card)
     value = card.card_value
     value == 11 && @points > 10 ? @points += 1 : @points += value         
+  end
+
+  def cards_amount?
+    @cards.size > 3
   end
 end

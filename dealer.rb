@@ -5,4 +5,8 @@ class Dealer < User
   def initialize(name = 'Dealer')
     super
   end
+
+  def logic
+    
+  end
 end

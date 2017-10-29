@@ -13,4 +13,8 @@ class User
   def skip_move
     puts "#{name} skips move"
   end
+
+  def info_for_user
+    "#{name}: #{hand.show_cards}, points: #{hand.points}"
+  end
 end
