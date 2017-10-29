@@ -1,8 +1,9 @@
 require_relative './dealer'
 require_relative './player'
+require_relative './deck'
 
 class Game
-  attr_reader :game_bank, :dealer, :player
+  attr_reader :game_bank, :dealer, :player, :deck
 
   def game_menu
   ' 
@@ -15,10 +16,11 @@ class Game
   end
 
   def start_game
-    puts "Start new game - 1, quit - 2"
+    puts 'Start new game - 1, quit - 2'
     answer = gets.chomp.to_i
     if answer == 1
       @game_bank = 0
+      @deck = Deck.new
       @dealer = Dealer.new
       puts 'Enter your name: '
       name = gets.chomp
@@ -33,11 +35,11 @@ class Game
   private
 
   def first_round
-    2.times { player.hand.add_card }
-    puts player.info_for_user
+    2.times { player.hand.add_card(deck) }
+    puts player.info
     player.bank -= 10
 
-    2.times { dealer.hand.add_card }
+    2.times { dealer.hand.add_card(deck) }
     puts "#{dealer.name}: * *"
     dealer.bank -= 10
 
@@ -48,21 +50,26 @@ class Game
     puts game_menu
 
     until player.hand.cards_amount? && dealer.hand.cards_amount?  
-      puts "Enter command:"
+      puts 'Enter command:'
       command = gets.chomp.to_i
       case command
         when 1
           player.skip_move
-          dealer.logic
+          dealer.logic(deck)
         when 2
-          player.hand.add_card
-          puts player.info_for_user
-          dealer.logic
+          player.hand.add_card(deck)
+          puts player.info
+          dealer.logic(deck)
         when 3
           break
       end
     end
-    
+    result
+  end
+
+  def result
+    puts player.info
+    puts dealer.info
   end
 end
 

@@ -1,4 +1,5 @@
 require_relative './card'
+require_relative './deck'
 
 class Hand
   VICTORY_POINTS = 21
@@ -10,10 +11,10 @@ class Hand
     @points = 0
   end
 
-  def add_card
+  def add_card(deck)
     unless cards_amount?
-      card = Card.new
-      @cards << card
+      card = deck.take_card
+      cards << card
       ace_check!(card)
     else
       'No more than 3 cards'
@@ -22,16 +23,16 @@ class Hand
 
   def show_cards
     result = ""
-    @cards.each { |card| result << "#{card.card} " }
+    cards.each { |card| result << "#{card.sign} " }
     result
   end
 
   def ace_check!(card)
-    value = card.card_value
-    value == 11 && @points > 10 ? @points += 1 : @points += value         
+    value = card.value
+    value == 11 && points > 10 ? points += 1 : @points += value         
   end
 
   def cards_amount?
-    @cards.size > 3
+    cards.size == 3
   end
 end

@@ -1,19 +1,14 @@
 class Card
-  CARDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
-  SUITS = ['+', '<', '^', '<>']
+  attr_reader :value, :sign
 
-  attr_reader :card_value, :card
-
-  def initialize
-    card = CARDS.shuffle.sample
-    suit = SUITS.shuffle.sample
-    @card = card.to_s + suit
-    @card_value = define_value(card)
+  def initialize(sign, suit)
+    @sign = sign.to_s + suit
+    @value = define_value(sign)
   end
 
-  def define_value(card)
-    case card
-      when 2..10 then card
+  def define_value(sign)
+    case sign
+      when 2..10 then sign
       when 'J', 'Q', 'K' then 10
       when 'A' then 11       
     end

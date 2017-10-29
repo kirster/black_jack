@@ -6,7 +6,12 @@ class Dealer < User
     super
   end
 
-  def logic
-    
+  def logic(deck)
+    if hand.points >= 18
+      skip_move
+    else
+      puts "#{name} takes a card"
+      hand.add_card(deck)
+    end
   end
 end
