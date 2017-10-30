@@ -1,8 +1,8 @@
 require_relative './card'
 
 class Deck
-  SIGNS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
-  SUITS = ['+', '<', '^', '<>']
+  SIGNS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'].freeze
+  SUITS = ['+', '<', '^', '<>'].freeze
 
   attr_reader :deck
 
@@ -13,7 +13,7 @@ class Deck
   def create_deck
     deck = []
     SUITS.each do |suit|
-      SIGNS.each { |sign| deck << Card.new(sign,suit) }
+      SIGNS.each { |sign| deck << Card.new(sign, suit) }
     end
     deck.shuffle
   end
@@ -23,6 +23,6 @@ class Deck
   end
 
   def enough_cards?
-    deck.size == 0
+    deck.empty?
   end
 end

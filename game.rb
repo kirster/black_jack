@@ -6,12 +6,10 @@ class Game
   attr_reader :dealer, :player, :deck, :game_bank
 
   def game_menu
-    puts '------------------' 
     puts '1 - skip move' unless player.skipped
-    puts '2 - add a card' if player.hand.cards.size < 3 
+    puts '2 - add a card' if player.hand.cards.size < 3
     puts '3 - show cards'
-    puts 'Enter command:'
-    puts '------------------' 
+    print 'Enter command:'
   end
 
   def new_game
@@ -26,7 +24,7 @@ class Game
       game_process
     else
       puts 'You finished playing Black Jack'
-    end 
+    end
   end
 
   private
@@ -42,18 +40,18 @@ class Game
 
   def one_turn
     until player.hand.cards_amount? && dealer.hand.cards_amount?
-      puts game_menu  
+      puts game_menu
       command = gets.chomp.to_i
       case command
-        when 1
-          player.skip_move
-          dealer.logic(deck)
-        when 2
-          player.hand.add_card(deck)
-          puts player.info
-          dealer.logic(deck)
-        when 3
-          break
+      when 1
+        player.skip_move
+        dealer.logic(deck)
+      when 2
+        player.hand.add_card(deck)
+        puts player.info
+        dealer.logic(deck)
+      when 3
+        break
       end
     end
     result
@@ -62,12 +60,12 @@ class Game
   end
 
   def first_round
-    puts
+    puts '=================================='
     puts 'New turn'
     player.bank -= 10
     2.times { player.hand.add_card(deck) }
     puts player.info
-    
+
     dealer.bank -= 10
     2.times { dealer.hand.add_card(deck) }
     puts "#{dealer.name}: * *"
@@ -86,19 +84,17 @@ class Game
     p_pt = player.points
 
     if d_pt > 21 && p_pt > 21 || d_pt == p_pt
-      puts "Drawn for this turn"
+      puts 'Drawn for this turn'
       dealer.bank += game_bank / 2
       player.bank += game_bank / 2
-      @game_bank = 0
     elsif d_pt < p_pt && p_pt <= 21 || d_pt > p_pt && d_pt > 21
-      puts "Player wins this turn"
+      puts 'Player wins this turn'
       player.bank += game_bank
-      @game_bank = 0
     else
-      puts "Dealer wins this turn"
+      puts 'Dealer wins this turn'
       dealer.bank += game_bank
-      @game_bank = 0
     end
+    @game_bank = 0
   end
 end
 

@@ -15,14 +15,14 @@ class Hand
   end
 
   def show_cards
-    result = ""
+    result = ''
     cards.each { |card| result << "#{card.sign} " }
     result
   end
 
   def ace_check!(card)
     value = card.value
-    value == 11 && points > 10 ? @points += 1 : @points += value         
+    @points += value == 11 && points > 10 ? 1 : value
   end
 
   def cards_amount?

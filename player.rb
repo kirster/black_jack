@@ -10,6 +10,6 @@ class Player < User
   protected
 
   def validate!
-    raise 'Name can`be nill or empty' if name.nil? || name.empty?  
+    raise 'Name can`be nill or empty' if name.nil? || name.empty?
   end
 end

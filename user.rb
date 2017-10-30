@@ -16,11 +16,11 @@ class User
   end
 
   def info
-    "#{name}: bank: #{bank}, #{hand.show_cards}, points: #{hand.points}"
+    "#{name}: bank #{bank}, #{hand.show_cards}, points: #{hand.points}"
   end
 
   def enough_bank?
-    bank == 0
+    bank.zero?
   end
 
   def next_turn

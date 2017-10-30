@@ -8,9 +8,9 @@ class Card
 
   def define_value(sign)
     case sign
-      when 2..10 then sign
-      when 'J', 'Q', 'K' then 10
-      when 'A' then 11       
+    when 2..10 then sign
+    when 'J', 'Q', 'K' then 10
+    when 'A' then 11
     end
   end
 end
