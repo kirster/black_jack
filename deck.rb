@@ -21,4 +21,8 @@ class Deck
   def take_card
     deck.delete(deck.sample)
   end
+
+  def enough_cards?
+    deck.size == 0
+  end
 end

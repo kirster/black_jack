@@ -2,8 +2,6 @@ require_relative './card'
 require_relative './deck'
 
 class Hand
-  VICTORY_POINTS = 21
-
   attr_reader :points, :cards
 
   def initialize
@@ -12,13 +10,8 @@ class Hand
   end
 
   def add_card(deck)
-    unless cards_amount?
-      card = deck.take_card
-      cards << card
-      ace_check!(card)
-    else
-      'No more than 3 cards'
-    end 
+    cards << deck.take_card
+    ace_check!(cards.last)
   end
 
   def show_cards
@@ -29,7 +22,7 @@ class Hand
 
   def ace_check!(card)
     value = card.value
-    value == 11 && points > 10 ? points += 1 : @points += value         
+    value == 11 && points > 10 ? @points += 1 : @points += value         
   end
 
   def cards_amount?
