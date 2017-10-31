@@ -39,20 +39,21 @@ class Game
   end
 
   def one_turn
+    cards_shown = false
     until player.hand.cards_amount? && dealer.hand.cards_amount?
       puts game_menu
       command = gets.chomp.to_i
       case command
       when 1
         player.skip_move
-        dealer.logic(deck)
       when 2
         player.hand.add_card(deck)
         puts player.info
-        dealer.logic(deck)
       when 3
+        cards_shown = true
         break
       end
+      dealer.logic(deck) unless cards_shown
     end
     result
     player.next_turn
