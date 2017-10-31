@@ -1,16 +1,11 @@
 class Card
+  VALUES = { 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9,
+             10 => 10, 'J' => 10, 'Q' => 10, 'K' => 10, 'A' => 11 }.freeze
+
   attr_reader :value, :sign
 
   def initialize(sign, suit)
     @sign = sign.to_s + suit
-    @value = define_value(sign)
-  end
-
-  def define_value(sign)
-    case sign
-    when 2..10 then sign
-    when 'J', 'Q', 'K' then 10
-    when 'A' then 11
-    end
+    @value = VALUES[sign]
   end
 end
