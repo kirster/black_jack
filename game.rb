@@ -1,47 +1,41 @@
 require_relative './dealer'
 require_relative './player'
 require_relative './deck'
+require_relative './interface'
 
 class Game
   attr_reader :dealer, :player, :deck, :game_bank
 
-  def game_menu
+  def initialize(name)
+    @game_bank = 0
+    @deck = Deck.new
+    @dealer = Dealer.new
+    @player = Player.new(name)
+  end
+
+  def game_process
+    loop do
+      break if player.enough_bank? || dealer.enough_bank? || deck.enough_cards?
+      one_turn
+    end
+    Interface.new.start_game
+  end
+
+  private
+
+  def menu
     puts '1 - skip move' unless player.skipped
     puts '2 - add a card' if player.hand.cards.size < 3
     puts '3 - show cards'
     print 'Enter command:'
   end
 
-  def new_game
-    puts 'Start new game - 1, quit - 0'
-    if gets.chomp.to_i == 1
-      @game_bank = 0
-      @deck = Deck.new
-      @dealer = Dealer.new
-      puts 'Enter your name: '
-      name = gets.chomp
-      @player = Player.new(name)
-      game_process
-    else
-      puts 'You finished playing Black Jack'
-    end
-  end
-
-  private
-
-  def game_process
-    loop do
-      break if player.enough_bank? || dealer.enough_bank? || deck.enough_cards?
-      first_round
-      one_turn
-    end
-    new_game
-  end
-
   def one_turn
     cards_shown = false
+    first_round
+
     until player.hand.cards_amount? && dealer.hand.cards_amount?
-      puts game_menu
+      puts menu
       command = gets.chomp.to_i
       case command
       when 1
@@ -55,6 +49,7 @@ class Game
       end
       dealer.logic(deck) unless cards_shown
     end
+
     result
     player.next_turn
     dealer.next_turn
@@ -101,6 +96,3 @@ class Game
     dealer.points > player.points && dealer.points > 21
   end
 end
-
-game = Game.new
-game.new_game
