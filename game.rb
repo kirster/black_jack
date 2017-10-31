@@ -58,6 +58,7 @@ class Game
     result
     player.next_turn
     dealer.next_turn
+    @game_bank = 0
   end
 
   def first_round
@@ -75,27 +76,29 @@ class Game
   end
 
   def result
-    winner
-    puts player.info
-    puts dealer.info
-  end
-
-  def winner
-    d_pt = dealer.points
-    p_pt = player.points
-
-    if d_pt > 21 && p_pt > 21 || d_pt == p_pt
+    if drawn?
       puts 'Drawn for this turn'
       dealer.bank += game_bank / 2
       player.bank += game_bank / 2
-    elsif d_pt < p_pt && p_pt <= 21 || d_pt > p_pt && d_pt > 21
+    elsif player_win?
       puts 'Player wins this turn'
       player.bank += game_bank
     else
       puts 'Dealer wins this turn'
       dealer.bank += game_bank
     end
-    @game_bank = 0
+    puts player.info
+    puts dealer.info
+  end
+
+  def drawn?
+    dealer.points > 21 && player.points > 21 || 
+    dealer.points == player.points
+  end
+
+  def player_win?
+    dealer.points < player.points && player.points <= 21 || 
+    dealer.points > player.points && dealer.points > 21
   end
 end
 
