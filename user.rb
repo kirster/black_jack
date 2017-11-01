@@ -14,7 +14,7 @@ class User
   end
 
   def take_card(deck)
-    hand.add_card(deck.get_card)
+    hand.add_card(deck.card)
   end
 
   def skip_move
@@ -30,7 +30,7 @@ class User
     bank.zero?
   end
 
-  def next_turn
+  def new_turn
     @skipped = false
     @hand = Hand.new
   end

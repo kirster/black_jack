@@ -9,14 +9,14 @@ class Deck
 
   def create_deck
     deck = []
-    %w(+ < ^ <>).each do |suit|
-      (2..10).each { |sign| deck << Card.new(sign, suit) }  
-      %w(J Q K A).each { |sign| deck << Card.new(sign, suit) }
+    %w[+ < ^ <>].each do |suit|
+      (2..10).each { |sign| deck << Card.new(sign, suit) }
+      %w[J Q K A].each { |sign| deck << Card.new(sign, suit) }
     end
     deck.shuffle
   end
 
-  def get_card
+  def card
     deck.delete(deck.sample)
   end
 
