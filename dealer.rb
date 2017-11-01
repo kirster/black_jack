@@ -1,4 +1,3 @@
-require_relative './hand'
 require_relative './user'
 
 class Dealer < User
@@ -11,7 +10,7 @@ class Dealer < User
       skip_move
     else
       puts "#{name} takes a card"
-      hand.add_card(deck)
+      take_card(deck)
     end
   end
 end

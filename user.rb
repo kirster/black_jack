@@ -1,3 +1,6 @@
+require_relative './hand'
+require_relative './deck'
+
 class User
   INITIAL_BANK = 100
 
@@ -8,6 +11,10 @@ class User
     @name = name
     @bank = INITIAL_BANK
     @hand = Hand.new
+  end
+
+  def take_card(deck)
+    hand.add_card(deck.get_card)
   end
 
   def skip_move

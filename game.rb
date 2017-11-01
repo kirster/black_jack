@@ -41,7 +41,7 @@ class Game
       when 1
         player.skip_move
       when 2
-        player.hand.add_card(deck)
+        player.take_card(deck)
         puts player.info
       when 3
         cards_shown = true
@@ -60,11 +60,11 @@ class Game
     puts '=================================='
     puts 'New turn'
     player.bank -= 10
-    2.times { player.hand.add_card(deck) }
+    2.times { player.take_card(deck) }
     puts player.info
 
     dealer.bank -= 10
-    2.times { dealer.hand.add_card(deck) }
+    2.times { dealer.take_card(deck) }
     puts "#{dealer.name}: * *"
 
     @game_bank += 20

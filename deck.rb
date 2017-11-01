@@ -16,7 +16,7 @@ class Deck
     deck.shuffle
   end
 
-  def take_card
+  def get_card
     deck.delete(deck.sample)
   end
 

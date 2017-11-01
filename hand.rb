@@ -1,5 +1,4 @@
 require_relative './card'
-require_relative './deck'
 
 class Hand
   attr_reader :points, :cards
@@ -9,8 +8,8 @@ class Hand
     @points = 0
   end
 
-  def add_card(deck)
-    cards << deck.take_card
+  def add_card(card)
+    cards << card
     ace_check!(cards.last)
   end
 
