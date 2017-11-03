@@ -27,7 +27,7 @@ class User
   end
 
   def enough_bank?
-    bank.zero?
+    bank >= 10
   end
 
   def new_turn

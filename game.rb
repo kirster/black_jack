@@ -3,7 +3,7 @@ require_relative './player'
 require_relative './deck'
 
 class Game
-  attr_reader :dealer, :player, :deck, :game_bank, :interface, :turn_winner
+  attr_reader :dealer, :player, :deck, :game_bank, :turn_winner, :cards_shown
 
   def initialize(name)
     @game_bank = 0
@@ -12,35 +12,15 @@ class Game
     @player = Player.new(name)
   end
 
-  def connect_interface(interface)
-    @interface = interface
-  end
-
   def setup_turn
-    @turn_winner = nil
+    @turn_winner
+    @cards_shown = false
     player.new_turn
     dealer.new_turn
   end
 
-  def one_turn
-    cards_shown = false
-    until player.hand.cards_amount? && dealer.hand.cards_amount?
-      case interface.user_input
-      when 1
-        player.skip_move
-      when 2
-        player.take_card(deck)
-      when 3
-        cards_shown = true
-        break
-      end
-      dealer.logic(deck) unless cards_shown
-    end
-    result
-    @game_bank = 0
-  end
-
   def first_round
+    setup_turn
     player.bank -= 10
     2.times { player.take_card(deck) }
     dealer.bank -= 10
@@ -48,22 +28,40 @@ class Game
     @game_bank += 20
   end
 
+  def one_turn(action)
+    case action
+    when :skip
+      player.skip_move
+    when :add
+      player.take_card(deck)
+    when :show
+      @cards_shown = true
+    end
+    dealer.move(deck) unless cards_shown
+    result if stop_turn?
+  end
+
   def result
     if drawn?
       dealer.bank += game_bank / 2
       player.bank += game_bank / 2
-      @turn_winner = 'drawn'
+      @turn_winner = :drawn
     elsif player_win?
       player.bank += game_bank
-      @turn_winner = 'player'
+      @turn_winner = :player
     else
       dealer.bank += game_bank
-      @turn_winner = 'dealer'
+      @turn_winner = :dealer
     end
+    @game_bank = 0
   end
 
-  def game_stop?
-    player.enough_bank? || dealer.enough_bank? || deck.enough_cards?
+  def stop_turn?
+    player.hand.full_hand? && dealer.hand.full_hand? || cards_shown
+  end
+
+  def game_continue?
+    player.enough_bank? && dealer.enough_bank? && deck.enough_cards?
   end
 
   def drawn?

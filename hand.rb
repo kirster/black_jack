@@ -24,7 +24,7 @@ class Hand
     @points += value == 11 && points > 10 ? 1 : value
   end
 
-  def cards_amount?
+  def full_hand?
     cards.size == 3
   end
 end

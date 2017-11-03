@@ -5,7 +5,7 @@ class Dealer < User
     super
   end
 
-  def logic(deck)
+  def move(deck)
     if hand.points >= 18 && !skipped
       skip_move
     else

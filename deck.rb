@@ -9,9 +9,8 @@ class Deck
 
   def create_deck
     deck = []
-    %w[+ < ^ <>].each do |suit|
-      (2..10).each { |sign| deck << Card.new(sign, suit) }
-      %w[J Q K A].each { |sign| deck << Card.new(sign, suit) }
+    Card::SUITS.each do |suit|
+      Card::SIGNS.each { |sign| deck << Card.new(sign, suit) }
     end
     deck.shuffle
   end
@@ -21,6 +20,6 @@ class Deck
   end
 
   def enough_cards?
-    deck.empty?
+    deck.any?
   end
 end
